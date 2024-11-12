@@ -23,6 +23,14 @@
           - gnutls-bin # workaround for git-clone issue, https://stackoverflow.com/a/53147659/4326632
         state: present
 
+    - name: Set workspace user facts
+      template:
+        src: welcome.html
+        dest: /srv/static/index.html
+        owner: root
+        group: root
+        mode: 0644
+
   roles:
     # For now you need to manually install HTCondor because of
     # https://github.com/galaxyproject/pulsar/issues/375
@@ -31,6 +39,11 @@
     - role: uusrc.general.nginx_reverse_proxy
       vars:
         nginx_reverse_proxy_locations:
+        - name: about
+          location: '=/'
+          root: /srv/static/
+          try_files: $uri/index.html =404;
+          auth: sram
         - name: pulsar
           location: /
           proxy_pass: "http://localhost:8913"

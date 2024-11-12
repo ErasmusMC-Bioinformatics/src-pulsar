@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>Pulsar Configuration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/concrete.css/3.0.0/concrete.min.css">
+  <meta name="theme-color" content="#ffffff">
+
+  <style>
+    .row {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+
+    .row .column {
+      display: block;
+      flex: 1 1 auto;
+      margin-left: 0;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    @media (min-width: 30.0rem) {
+      .row {
+        flex-direction: row;
+        margin: 0 -.5rem;
+        width: calc(100% + 1rem);
+      }
+
+      .row .column {
+        margin-bottom: inherit;
+        padding: 0 .5rem;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+    <h1>Pulsar Configuration Information</h1>
+  </header>
+
+  <main>
+
+    <section>
+      <h2>Configuring Galaxy</h2>
+      <p>Add the following configuration to your Galaxy <code>job_conf.xml</code>
+<pre>
+<destination id="remote_gpu" runner="pulsar">
+	<param id="url">{{ workspace_fqdn }}</param>
+	<param id="dependency_resolution">remote</param>
+	<param id="private_token">{{ pulsar_token }}</param>
+	<param id="manager">_default_</param>
+	<!-- <param id="jobs_directory">__PULSAR_JOBS_DIRECTORY__</param> -->
+</destination>
+</pre>
+    </section>
+  </main>
+
+  <!--
+  <footer>
+    <hr>
+    <p>
+    </p>
+  </footer>
+  -->
+
+</body>
+
+</html>
