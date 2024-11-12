@@ -1,0 +1,56 @@
+# galaxy_server_hostname: "sensitiveimages.src-sensitive-i.src.surf-hosted.nl"
+
+pulsar_root: /mnt/pulsar
+
+pulsar_pip_install: true
+pulsar_pycurl_ssl_library: openssl
+pulsar_systemd: true
+pulsar_systemd_runner: uwsgi
+
+pulsar_create_user: true
+pulsar_user: {name: pulsar, shell: /bin/bash}
+
+pulsar_optional_dependencies:
+  - pyOpenSSL
+  # For remote transfers initiated on the Pulsar end rather than the Galaxy end
+  - pycurl
+  # psutil and pylockfile are optional dependencies but can make Pulsar
+  # more robust in small ways.
+  - psutil
+  - uwsgi
+
+pulsar_host: "0.0.0.0"
+pulsar_uwsgi_options:
+  buffer-size: 32768
+
+pulsar_yaml_config:
+  managers:
+    _default_:
+      type: queued_python
+      # type: queued_condor
+      # submit_request_memory: 85
+  private_token: "{{ pulsar_secret }}"
+  staging_directory: "{{ pulsar_staging_dir }}"
+  persistence_directory: "{{ pulsar_persistence_dir }}"
+  tool_dependency_dir: "{{ pulsar_dependencies_dir }}"
+  min_polling_interval: 0.5
+  # We also need to create the dependency resolvers configuration so pulsar
+  # knows how to find and install dependencies for the tools we ask it to run.
+  # The simplest method which covers 99% of the use cases is to use conda auto
+  # installs similar to how Galaxy works.
+  dependency_resolution:
+    resolvers:
+      - type: conda
+        auto_init: true
+        auto_install: true
+
+# Pulsar should use the same job metrics plugins as Galaxy. This will automatically set `job_metrics_config_file` in
+# `pulsar_yaml_config` and create `{{ pulsar_config_dir }}/job_metrics_conf.yml`.
+pulsar_job_metrics_plugins:
+  - type: core
+  - type: cpuinfo
+  - type: meminfo
+  - type: uname
+  - type: env
+  - type: cgroup
+  - type: hostname

@@ -1,0 +1,31 @@
+---
+- name: Install Pulsar Server
+  hosts: "{{ lookup('env', 'variable_host') | default('localhost', true) }}" # workaround because SRC needs localhost, but molecule needs specifc hostvars
+
+  pre_tasks:
+    # Copied from mirelaminkova/src-component-galaxy
+    - name: Set workspace user facts
+      ansible.builtin.include_role:
+        name: uusrc.general.fact_regular_users
+
+    - name: Include config tasks and load variables
+      ansible.builtin.include_tasks: tasks/set_config.yml
+
+    - name: Install Dependencies
+      ansible.builtin.apt:
+        update_cache: true
+        name:
+          - 'git'
+          - 'python3-psycopg2'
+          - 'python3-virtualenv'
+          - 'python3-dev'
+          - 'gcc'
+          - 'acl'
+          - 'gnutls-bin' # workaround for git-clone issue, https://stackoverflow.com/a/53147659/4326632
+        state: present
+
+  roles:
+    # For now you need to manually install HTCondor because of
+    # https://github.com/galaxyproject/pulsar/issues/375
+    - galaxyproject.cvmfs
+    - galaxyproject.pulsar
