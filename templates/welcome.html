@@ -49,7 +49,7 @@
       <h2>Configuring Galaxy</h2>
       <p>Add the following configuration to your Galaxy <code>job_conf.xml</code>
 <pre>
-&lt;destination id="remote_gpu" runner="pulsar"&gt;
+&lt;destination id="remote_{{ inventory_hostname }}" runner="pulsar"&gt;
     &lt;param id="url"&gt;{{ workspace_fqdn | default('localhost', true)  }}&lt;/param&gt;
     &lt;param id="dependency_resolution"&gt;remote&lt;/param&gt;
     &lt;param id="private_token"&gt;{{ pulsar_token | default('unknown', true)  }}&lt;/param&gt;
