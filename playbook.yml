@@ -23,13 +23,13 @@
           - gnutls-bin # workaround for git-clone issue, https://stackoverflow.com/a/53147659/4326632
         state: present
 
-    - name: Set workspace user facts
-      template:
-        src: welcome.html
-        dest: /srv/static/index.html
-        owner: root
-        group: root
-        mode: 0644
+    # - name: Set workspace user facts
+    #   template:
+    #     src: welcome.html
+    #     dest: /srv/static/index.html
+    #     owner: root
+    #     group: root
+    #     mode: 0644
 
   roles:
     # For now you need to manually install HTCondor because of
