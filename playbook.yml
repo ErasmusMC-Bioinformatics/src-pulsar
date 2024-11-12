@@ -31,11 +31,12 @@
     - role: uusrc.general.nginx_reverse_proxy
       vars:
         nginx_reverse_proxy_locations:
-        # - name: about
-        #   location: '=/'
-        #   root: /srv/static/
-        #   try_files: $uri/index.html =404;
-        #   auth: sram
+        - name: about
+          location: '=/'
+          proxy_pass: "http://localhost:8080"
+          auth: sram
+          # root: /srv/static/
+          # try_files: $uri/index.html =404;
         - name: pulsar
           location: /
           proxy_pass: "http://localhost:8913"
