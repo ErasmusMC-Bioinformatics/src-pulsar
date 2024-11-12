@@ -41,23 +41,21 @@
 
 <body>
 
-  <header>
-    <h1>Pulsar Configuration Information</h1>
-  </header>
-
   <main>
+    <h1>Pulsar Configuration Information</h1>
+    <p>Auto-generated as part of deployment</p>
 
     <section>
       <h2>Configuring Galaxy</h2>
       <p>Add the following configuration to your Galaxy <code>job_conf.xml</code>
 <pre>
-<destination id="remote_gpu" runner="pulsar">
-	<param id="url">{{ workspace_fqdn }}</param>
-	<param id="dependency_resolution">remote</param>
-	<param id="private_token">{{ pulsar_token }}</param>
-	<param id="manager">_default_</param>
-	<!-- <param id="jobs_directory">__PULSAR_JOBS_DIRECTORY__</param> -->
-</destination>
+&lt;destination id="remote_gpu" runner="pulsar"&gt;
+    &lt;param id="url"&gt;{{ workspace_fqdn | default('localhost', true)  }}&lt;/param&gt;
+    &lt;param id="dependency_resolution"&gt;remote&lt;/param&gt;
+    &lt;param id="private_token"&gt;{{ pulsar_token | default('unknown', true)  }}&lt;/param&gt;
+    &lt;param id="manager"&gt;_default_&lt;/param&gt;
+    &lt;!-- &lt;param id="jobs_directory"&gt;__PULSAR_JOBS_DIRECTORY__&lt;/param&gt; --&gt;
+&lt;/destination&gt;
 </pre>
     </section>
   </main>
@@ -69,6 +67,10 @@
     </p>
   </footer>
   -->
+
+<pre>
+{{ hostvars[inventory_hostname] }}
+</pre>
 
 </body>
 
