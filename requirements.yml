@@ -1,0 +1,17 @@
+---
+roles:
+  - src: geerlingguy.docker
+    version: 6.1.0
+  - src: usegalaxy_eu.apptainer
+    version: 0.0.1
+  - src: galaxyproject.cvmfs
+    version: 0.2.21
+  - src: usegalaxy_eu.apptainer
+    version: 0.0.1
+  - src: galaxyproject.pulsar
+    version: 1.0.9
+collections:
+  - name: community.general
+  - name: https://github.com/UtrechtUniversity/researchcloud-items.git
+    type: git
+    version: 02dab70feb046030e46e55886c2afa8ae7982c08

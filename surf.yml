@@ -28,4 +28,5 @@
     # For now you need to manually install HTCondor because of
     # https://github.com/galaxyproject/pulsar/issues/375
     - galaxyproject.cvmfs
+    - usegalaxy_eu.apptainer
     - galaxyproject.pulsar
