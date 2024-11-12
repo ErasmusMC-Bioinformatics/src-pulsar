@@ -28,4 +28,15 @@
     # https://github.com/galaxyproject/pulsar/issues/375
     - galaxyproject.cvmfs
     - usegalaxy_eu.apptainer
+    - role: uusrc.general.nginx_reverse_proxy
+      vars:
+        nginx_reverse_proxy_locations:
+        - name: pulsar
+          location: /
+          proxy_pass: "http://localhost:8913"
+          auth: noauth
+        # - name: galaxy
+        #   location: /
+        #   proxy_pass: "http://{{ _galaxy_local_address }}"
+        #   auth: "{{ _molecule_active | ternary(omit, 'sram') }}"
     - galaxyproject.pulsar
