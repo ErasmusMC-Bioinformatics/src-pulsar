@@ -8,20 +8,19 @@
       ansible.builtin.include_role:
         name: uusrc.general.fact_regular_users
 
-    - name: Include config tasks and load variables
-      ansible.builtin.include_tasks: tasks/set_config.yml
-
     - name: Install Dependencies
       ansible.builtin.apt:
         update_cache: true
         name:
-          - 'git'
-          - 'python3-psycopg2'
-          - 'python3-virtualenv'
-          - 'python3-dev'
-          - 'gcc'
-          - 'acl'
-          - 'gnutls-bin' # workaround for git-clone issue, https://stackoverflow.com/a/53147659/4326632
+          - build-essential
+          - git
+          - libcurl4-openssl-dev
+          - libssl-dev
+          - python3-psycopg2
+          - python3-virtualenv
+          - python3-dev
+          - acl
+          - gnutls-bin # workaround for git-clone issue, https://stackoverflow.com/a/53147659/4326632
         state: present
 
   roles:
