@@ -1,5 +1,3 @@
-# galaxy_server_hostname: "sensitiveimages.src-sensitive-i.src.surf-hosted.nl"
-
 pulsar_root: /mnt/pulsar
 
 pulsar_pip_install: true
@@ -29,7 +27,7 @@ pulsar_yaml_config:
       type: queued_python
       # type: queued_condor
       # submit_request_memory: 85
-  private_token: "{{ pulsar_secret }}"
+  private_token: "{{ pulsar_token }}"
   staging_directory: "{{ pulsar_staging_dir }}"
   persistence_directory: "{{ pulsar_persistence_dir }}"
   tool_dependency_dir: "{{ pulsar_dependencies_dir }}"
