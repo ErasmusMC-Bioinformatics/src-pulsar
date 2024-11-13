@@ -78,6 +78,8 @@
   &lt;tool id="toolshed.g2.bx.psu.edu/repos/devteam/bwa/bwa/0.7.18" destination="remote_{{ ansible_hostname }}"/&gt;
 &lt;/tools&gt;
 </pre>
+    <h2>Restart Galaxy</h2>
+    <code>systemctl restart galaxy-*</code>
 
     <h2>Testing Pulsar</h2>
     <p>On <emph>this node</emph> you can run the following command to check that Pulsar is running correctly, but this will likely fail part way through due to <a href="https://github.com/galaxyproject/pulsar/issues/377">galaxyproject/pulsar#377</a>, but if the job executes otherwise then you're probably fine.</p>
