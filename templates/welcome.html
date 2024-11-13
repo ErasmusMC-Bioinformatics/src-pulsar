@@ -46,10 +46,16 @@
     <p>Auto-generated as part of deployment</p>
 
     <section>
+      <h2>About</h2>
+      <ul>
+        <li><strong>Admins:</strong> {{ fact_co_groups.src_co_admin }}</li>
+        <li><strong>Workspace FQDN:</strong> {{ workspace_fqdn | default('localhost', true) }}</li>
+      </ul>
+
       <h2>Configuring Galaxy</h2>
-      <p>Add the following configuration to your Galaxy <code>job_conf.xml</code>
+      <p>Add the following configuration to your Galaxy <code>job_conf.xml</code> to enable the use of this Pulsar endpoint</p>
 <pre>
-&lt;destination id="remote_{{ inventory_hostname }}" runner="pulsar"&gt;
+&lt;destination id="remote_{{ ansible_hostname }}" runner="pulsar"&gt;
     &lt;param id="url"&gt;https://{{ workspace_fqdn | default('localhost', true)  }}&lt;/param&gt;
     &lt;param id="dependency_resolution"&gt;remote&lt;/param&gt;
     &lt;param id="private_token"&gt;{{ pulsar_token | default('unknown', true)  }}&lt;/param&gt;
@@ -58,6 +64,16 @@
 &lt;/destination&gt;
 </pre>
     </section>
+
+    <h2>Testing Pulsar</h2>
+    <p>On <emph>this node</emph> you can run the following command to check that Pulsar is running correctly:</p>
+<pre>$ . /mnt/pulsar/venv/bin/activate
+$ pulsar-check --private_token={{ pulsar_token | default('unknown', true)  }}
+{}
+INFO:pulsar.client.manager:Setting Pulsar client class to standard, non-caching variant.
+DEBUG:pulsar.client.client:Uploading path [/tmp/pulsar-check-client.tzn_c2ki/t/script.py] (action_type: [transfer])
+...
+</pre>
 
     <h2>Ansible Configuration</h2>
     <details>

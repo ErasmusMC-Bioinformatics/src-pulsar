@@ -1,5 +1,4 @@
 # NGINX
-#
 nginx_reverse_proxy_locations:
 - name: about
   location: '=/'
@@ -12,11 +11,9 @@ nginx_reverse_proxy_locations:
   auth: noauth
 
 # SLURM
-
 slurm_roles: ['controller', 'exec']
 slurm_nodes:
 - name: localhost
-
 
 # Pulsar
 pulsar_root: /mnt/pulsar
@@ -37,6 +34,8 @@ pulsar_optional_dependencies:
   # more robust in small ways.
   - psutil
   - uwsgi
+  # drmaa required if connecting to an external DRM using it.
+  - drmaa
 
 pulsar_host: "0.0.0.0"
 pulsar_uwsgi_options:
@@ -45,7 +44,10 @@ pulsar_uwsgi_options:
 pulsar_yaml_config:
   managers:
     _default_:
-      type: queued_python
+      type: queued_cli
+      job_plugin: Slurm
+      # type: queued_slurm
+      # type: queued_python
       # type: queued_condor
       # submit_request_memory: 85
   private_token: "{{ pulsar_token }}"
