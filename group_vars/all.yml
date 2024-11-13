@@ -33,6 +33,9 @@ pulsar_pycurl_ssl_library: openssl
 pulsar_systemd: true
 pulsar_systemd_runner: uwsgi
 
+pulsar_systemd_environment:
+- DRMAA_LIBRARY_PATH=/usr/lib/slurm-drmaa/lib/libdrmaa.so.1
+
 pulsar_create_user: true
 pulsar_user: {name: pulsar, shell: /bin/bash}
 
