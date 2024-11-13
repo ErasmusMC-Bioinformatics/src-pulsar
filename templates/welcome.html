@@ -54,15 +54,30 @@
 
       <h2>Configuring Galaxy</h2>
       <p>Add the following configuration to your Galaxy <code>job_conf.xml</code> to enable the use of this Pulsar endpoint</p>
-<pre>
+<pre>...
+&lt;plugins&gt;
+    &lt;plugin id="pulsar" type="runner" load="galaxy.jobs.runners.pulsar:PulsarRESTJobRunner" /&gt;
+&lt;/plugins&gt;
+...
+&lt;destinations&gt;
 &lt;destination id="remote_{{ ansible_hostname }}" runner="pulsar"&gt;
     &lt;param id="url"&gt;https://{{ workspace_fqdn | default('localhost', true)  }}&lt;/param&gt;
     &lt;param id="dependency_resolution"&gt;remote&lt;/param&gt;
     &lt;param id="private_token"&gt;{{ pulsar_token | default('unknown', true)  }}&lt;/param&gt;
     &lt;param id="manager"&gt;_default_&lt;/param&gt;
 &lt;/destination&gt;
+&lt;destinations&gt;
+...
 </pre>
     </section>
+
+    <p>Select some tools which will run</p>
+<pre>...
+&lt;tools&gt;
+  ...
+  &lt;tool id="toolshed.g2.bx.psu.edu/repos/devteam/bwa/bwa/0.7.18" destination="remote_{{ ansible_hostname }}"/&gt;
+&lt;/tools&gt;
+</pre>
 
     <h2>Testing Pulsar</h2>
     <p>On <emph>this node</emph> you can run the following command to check that Pulsar is running correctly, but this will likely fail part way through due to <a href="https://github.com/galaxyproject/pulsar/issues/377">galaxyproject/pulsar#377</a>, but if the job executes otherwise then you're probably fine.</p>
