@@ -12,13 +12,10 @@ This repo provides the Ansible playbook for a [Pulsar](https://pulsar.readthedoc
 ### Services
 
 * Pulsar is installed on the node
-* Galaxy must later be configured to talk to this pulsar.
+* Galaxy must later be configured to talk to this pulsar, please use the "Access" button once the node is up to see documentation on adding it to your Galaxy.
 
 ### ResearchCloud parameters
 
 The component takes the following parameters:
 
-* `src_galaxy_version`: String. Set to e.g. `23.2` (default) to control the version of Galaxy that will be installed.
-(todo)
-
-If you attach additional networked storage to the workspace, you can set `src_galaxy_storage_path` to a path on that storage volume. If your storage is e.g. called "galaxy storage", set the parameter to: `/data/galaxy_storage/datadir`. In theory, this should allow you to re-use datasets, tools, etc. from previous Galaxy workspaces.
+* `pulsar_token`: CO-Secret. Please be sure to add a CO-Secret with the name `pulsar_token` in order to provide that secret value to the role. It may not be obvious if you haven't done this yet, please [see the documentation](https://servicedesk.surf.nl/wiki/display/WIKI/Secrets+and+workspace+info:+special+parameter+source+types#Secretsandworkspaceinfo:specialparametersourcetypes-Howtostoreasecrettoacollaboration) for more information.
