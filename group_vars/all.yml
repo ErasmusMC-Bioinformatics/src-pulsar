@@ -54,7 +54,7 @@ pulsar_yaml_config:
     _default_:
       # type: queued_cli
       # job_plugin: Slurm
-      type: queued_slurm
+      type: queued_drmaa
       # type: queued_python
       # type: queued_condor
       # submit_request_memory: 85
