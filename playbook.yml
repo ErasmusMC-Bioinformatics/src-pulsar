@@ -44,6 +44,12 @@
         #   location: /
         #   proxy_pass: "http://{{ _galaxy_local_address }}"
         #   auth: "{{ _molecule_active | ternary(omit, 'sram') }}"
+    - galaxyproject.repos
+    - role: galaxyproject.slurm
+      vars:
+        slurm_roles: ['controller', 'exec']
+        slurm_nodes:
+        - name: localhost
     - galaxyproject.pulsar
 
   post_tasks:
