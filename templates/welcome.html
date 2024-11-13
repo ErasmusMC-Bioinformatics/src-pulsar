@@ -60,12 +60,12 @@
 &lt;/plugins&gt;
 ...
 &lt;destinations&gt;
-&lt;destination id="remote_{{ ansible_hostname }}" runner="pulsar"&gt;
+  &lt;destination id="remote_{{ ansible_hostname }}" runner="pulsar"&gt;
     &lt;param id="url"&gt;https://{{ workspace_fqdn | default('localhost', true)  }}&lt;/param&gt;
     &lt;param id="dependency_resolution"&gt;remote&lt;/param&gt;
     &lt;param id="private_token"&gt;{{ pulsar_token | default('unknown', true)  }}&lt;/param&gt;
     &lt;param id="manager"&gt;_default_&lt;/param&gt;
-&lt;/destination&gt;
+  &lt;/destination&gt;
 &lt;destinations&gt;
 ...
 </pre>
