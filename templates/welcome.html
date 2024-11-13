@@ -65,7 +65,7 @@
     </section>
 
     <h2>Testing Pulsar</h2>
-    <p>On <emph>this node</emph> you can run the following command to check that Pulsar is running correctly:</p>
+    <p>On <emph>this node</emph> you can run the following command to check that Pulsar is running correctly, but this will likely fail part way through due to <a href="https://github.com/galaxyproject/pulsar/issues/377">galaxyproject/pulsar#377</a>, but if the job executes otherwise then you're probably fine.</p>
 <pre>$ . /mnt/pulsar/venv/bin/activate
 $ pulsar-check --private_token={{ pulsar_token | default('unknown', true)  }}
 {}
