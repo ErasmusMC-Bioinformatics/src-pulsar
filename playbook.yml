@@ -1,5 +1,6 @@
 ---
 - name: Install Pre-requisites for Pulsar
+  hosts: "{{ lookup('env', 'variable_host') | default('localhost', true) }}" # workaround because SRC needs localhost, but molecule needs specifc hostvars
   roles:
     - galaxyproject.repos
     - galaxyproject.slurm
