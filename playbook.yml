@@ -37,6 +37,7 @@
         state: present
 
   roles:
+    - influxdata.chrony
     - galaxyproject.cvmfs
     - usegalaxy_eu.apptainer
     - uusrc.general.nginx_reverse_proxy

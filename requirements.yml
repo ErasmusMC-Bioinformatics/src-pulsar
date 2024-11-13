@@ -14,6 +14,8 @@ roles:
     version: 0.0.3
   - src: galaxyproject.slurm
     version: 1.0.2
+  - src: influxdata.chrony
+    version: master
 collections:
   - name: community.general
   - name: https://github.com/UtrechtUniversity/researchcloud-items.git
