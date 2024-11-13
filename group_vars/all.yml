@@ -10,6 +10,11 @@ nginx_reverse_proxy_locations:
   proxy_pass: "http://localhost:8913"
   auth: noauth
 
+# CVMFS vars
+cvmfs_role: client
+galaxy_cvmfs_repos_enabled: config-repo
+cvmfs_quota_limit: 500
+
 # SLURM
 slurm_roles: ['controller', 'exec']
 slurm_nodes:
