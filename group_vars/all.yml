@@ -1,3 +1,24 @@
+# NGINX
+#
+nginx_reverse_proxy_locations:
+- name: about
+  location: '=/'
+  auth: sram
+  root: /srv/static/
+  try_files: $uri/index.html =404
+- name: pulsar
+  location: /
+  proxy_pass: "http://localhost:8913"
+  auth: noauth
+
+# SLURM
+
+slurm_roles: ['controller', 'exec']
+slurm_nodes:
+- name: localhost
+
+
+# Pulsar
 pulsar_root: /mnt/pulsar
 
 pulsar_pip_install: true

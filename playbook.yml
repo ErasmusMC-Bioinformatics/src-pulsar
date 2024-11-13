@@ -24,32 +24,12 @@
         state: present
 
   roles:
-    # For now you need to manually install HTCondor because of
-    # https://github.com/galaxyproject/pulsar/issues/375
     - galaxyproject.cvmfs
     - usegalaxy_eu.apptainer
-    - role: uusrc.general.nginx_reverse_proxy
-      vars:
-        nginx_reverse_proxy_locations:
-        - name: about
-          location: '=/'
-          auth: sram
-          root: /srv/static/
-          try_files: $uri/index.html =404
-        - name: pulsar
-          location: /
-          proxy_pass: "http://localhost:8913"
-          auth: noauth
-        # - name: galaxy
-        #   location: /
-        #   proxy_pass: "http://{{ _galaxy_local_address }}"
-        #   auth: "{{ _molecule_active | ternary(omit, 'sram') }}"
+    - uusrc.general.nginx_reverse_proxy
     - galaxyproject.repos
-    - role: galaxyproject.slurm
-      vars:
-        slurm_roles: ['controller', 'exec']
-        slurm_nodes:
-        - name: localhost
+    # https://github.com/galaxyproject/pulsar/issues/375
+    - galaxyproject.slurm
     - galaxyproject.pulsar
 
   post_tasks:

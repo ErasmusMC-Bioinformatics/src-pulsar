@@ -58,6 +58,13 @@
 &lt;/destination&gt;
 </pre>
     </section>
+
+    <h2>Ansible Configuration</h2>
+    <details>
+      <summary>Host Variables</summary>
+      <p>Host variables for <code>{{ inventory_hostname }}</code></p>
+      <pre>{{ hostvars[inventory_hostname] | to_nice_json }}</pre>
+    </details>
   </main>
 
   <!--
