@@ -1,4 +1,17 @@
 ---
+- name: Install Pre-requisites for Pulsar
+  roles:
+    - galaxyproject.repos
+    - galaxyproject.slurm
+  post_tasks:
+    - name: Install Dependencies
+      ansible.builtin.apt:
+        update_cache: true
+        name:
+          - slurm-drmaa1
+        state: present
+
+
 - name: Install Pulsar Server
   hosts: "{{ lookup('env', 'variable_host') | default('localhost', true) }}" # workaround because SRC needs localhost, but molecule needs specifc hostvars
 
@@ -27,9 +40,7 @@
     - galaxyproject.cvmfs
     - usegalaxy_eu.apptainer
     - uusrc.general.nginx_reverse_proxy
-    - galaxyproject.repos
     # https://github.com/galaxyproject/pulsar/issues/375
-    - galaxyproject.slurm
     - galaxyproject.pulsar
 
   post_tasks:
