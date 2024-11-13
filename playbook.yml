@@ -55,6 +55,6 @@
       template:
         src: templates/welcome.html
         dest: /srv/static/index.html
-        owner: root
-        group: root
-        mode: '0644'
+        owner: www-data
+        group: www-data
+        mode: '0640'
