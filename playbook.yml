@@ -9,7 +9,22 @@
         update_cache: true
         name:
           - slurm-drmaa1
+          - chrony
         state: present
+
+    - name: deploy chrony.conf template
+      template:
+       src: templates/chrony.conf
+       dest: /etc/chrony.conf
+       owner: root
+       group: root
+       mode: 0644
+       backup: yes
+
+    - name: Restart chronyd
+      service:
+        name: chronyd
+        state: restarted
 
 
 - name: Install Pulsar Server
@@ -37,7 +52,6 @@
         state: present
 
   roles:
-    - influxdata.chrony
     - galaxyproject.cvmfs
     - usegalaxy_eu.apptainer
     - uusrc.general.nginx_reverse_proxy
