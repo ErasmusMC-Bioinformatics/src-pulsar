@@ -1,3 +1,8 @@
+# Time
+chrony_pool: nl.pool.ntp.org prefer iburst
+chrony_server: null
+
+
 # NGINX
 nginx_reverse_proxy_locations:
 - name: about
