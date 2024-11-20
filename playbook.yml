@@ -53,6 +53,7 @@
         state: present
 
   roles:
+    - geerlingguy.docker
     - galaxyproject.cvmfs
     - usegalaxy_eu.apptainer
     - uusrc.general.nginx_reverse_proxy
