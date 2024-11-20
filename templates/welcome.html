@@ -53,7 +53,10 @@
       </ul>
 
       <h2>Configuring Galaxy</h2>
-      <p>On the Galaxy machine, add the following configuration to your Galaxy <code>job_conf.xml</code> to enable the use of this Pulsar endpoint</p>
+      <p>On the Galaxy machine, add the following configuration to your Galaxy <code>job_conf</code> to enable the use of this Pulsar endpoint</p>
+
+      <h3>XML</h3>
+      <p>Your job configuration is probably at <code>/srv/galaxy/config/job_conf.xml</code></p>
 <pre>...
 &lt;plugins&gt;
     &lt;plugin id="pulsar" type="runner" load="galaxy.jobs.runners.pulsar:PulsarRESTJobRunner" /&gt;
@@ -69,9 +72,43 @@
 &lt;destinations&gt;
 ...
 </pre>
+
+
+      <h3>YAML</h3>
+      <p>Your job configuration is probably at <code>/srv/galaxy/config/job_conf.yml</code></p>
+<pre>
+runners:
+  local:
+    load: galaxy.jobs.runners.local:LocalJobRunner
+    workers: 4
+  pulsar:
+    load: galaxy.jobs.runners.pulsar:PulsarRESTJobRunner
+
+execution:
+  default: docker_dispatch
+  environments:
+    local:
+      runner: local
+
+    ...
+    remote_{{ ansible_hostname }}:
+       runner: pulsar
+       url: https://{{ workspace_fqdn | default('localhost', true)  }}
+       private_token: {{ pulsar_token | default('unknown', true) }}
+       dependency_resolution: remote
+       manager: _default_
+</pre>
+
     </section>
 
     <p>Select some tools which will run</p>
+<pre>...
+tools:
+...
+- id: bwa
+  environment: remote_{{ ansible_hostname }}
+</pre>
+    <p>Or in XML</p>
 <pre>...
 &lt;tools&gt;
   ...
