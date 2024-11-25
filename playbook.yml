@@ -74,3 +74,11 @@
         owner: www-data
         group: www-data
         mode: '0640'
+
+    - name: Deploy epilog
+      copy:
+        src: files/epilog.sh
+        dest: /etc/slurm/epilog.sh
+        owner: root
+        group: root
+        mode: '0755'

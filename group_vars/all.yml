@@ -19,6 +19,9 @@ cvmfs_quota_limit: 500
 slurm_roles: ['controller', 'exec']
 slurm_nodes:
 - name: localhost
+slurm_config:
+  Epilog: /etc/slurm/epilog.sh
+  PrologEpilogTimeout: 90
 
 # Pulsar
 pulsar_root: /mnt/pulsar
