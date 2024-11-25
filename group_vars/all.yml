@@ -44,6 +44,8 @@ pulsar_optional_dependencies:
   - uwsgi
   # drmaa required if connecting to an external DRM using it.
   - drmaa
+  # For galaxy-container-monitor
+  - galaxy-job-execution
 
 pulsar_host: "0.0.0.0"
 pulsar_uwsgi_options:

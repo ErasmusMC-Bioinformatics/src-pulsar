@@ -68,6 +68,20 @@
     &lt;param id="dependency_resolution"&gt;remote&lt;/param&gt;
     &lt;param id="private_token"&gt;{{ pulsar_token | default('unknown', true)  }}&lt;/param&gt;
     &lt;param id="manager"&gt;_default_&lt;/param&gt;
+
+&lt;!-- Uncomment the following to enable interactive tools: --&gt;
+&lt;!--
+    &lt;param id="docker_enabled"&gt;true&lt;/param&gt;
+    &lt;param id="docker_memory"&gt;8G&lt;/param&gt;
+    &lt;param id="singularity_enabled"&gt;false&lt;/param&gt;
+    &lt;param id="tmp_dir"&gt;True&lt;/param&gt;
+    &lt;param id="outputs_to_working_directory"&gt;False&lt;/param&gt;
+    &lt;param id="require_container"&gt;true&lt;/param&gt;
+    &lt;param id="container_monitor_command"&gt;/mnt/pulsar/venv/bin/galaxy-container-monitor&lt;/param&gt;
+    &lt;param id="container_monitor_result"&gt;callback&lt;/param&gt;
+    &lt;param id="container_monitor_get_ip_method"&gt;command:hostname -f&lt;/param&gt;
+--&gt;
+
   &lt;/destination&gt;
 &lt;destinations&gt;
 ...
@@ -97,6 +111,20 @@ execution:
        private_token: {{ pulsar_token | default('unknown', true) }}
        dependency_resolution: remote
        manager: _default_
+       # Uncomment the following to enable interactive tools:
+       # docker_enabled: true
+       # docker_set_user: null
+       # docker_memory: "8G"
+       # singularity_enabled: false
+       # tmp_dir: true
+       # outputs_to_working_directory: false
+       # container_resolvers:
+       # - type: explicit
+       # require_container: True
+       # container_monitor_command: /mnt/pulsar/venv/bin/galaxy-container-monitor
+       # container_monitor_result: callback
+       # container_monitor_get_ip_method: command:hostname -f
+
 </pre>
 
     </section>
