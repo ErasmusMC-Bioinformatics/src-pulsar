@@ -24,40 +24,39 @@ This repository provides the Ansible playbook for a [Pulsar](https://pulsar.read
 > [!NOTE]
 > SSH access is required to reconfigure galaxy. Please make sure you set an SSH key
 
-2. Log in to [SURF Research Cloud](https://portal.live.surfresearchcloud.nl/)
+1. Log in to [SURF Research Cloud](https://portal.live.surfresearchcloud.nl/)
 
    ![screenshot of SRC login portal with a bright yellow login button](images/surf1.png)
 
-3. In SRC, you should be in a collaborative organisation with a wallet. If you're not, I'm not sure how to fix that. I'm mostly writing this documentation for my colleagues in my CO. Mostly you can ignore the top half of the screen, only the bottom half is useful or relevant for us.
+2. In SRC, you should be in a collaborative organisation with a wallet. If you're not, I'm not sure how to fix that. I'm mostly writing this documentation for my colleagues in my CO. Mostly you can ignore the top half of the screen, only the bottom half is useful or relevant for us.
 
    ![SRC dashboard, options like create new workspace, storage, or request a new wallet are available. three workspaces are listed: galaxy-test, imaging, and p20 in various states of running.](images/surf2.png)
 
-4. In the **Workspaces Tab** on the bottom half of the screen, you'll find a **Plus Button** at right to add a new workspace
+3. In the **Workspaces Tab** on the bottom half of the screen, you'll find a **Plus Button** at right to add a new workspace
 
    ![A small plus button is hovered over which says Add. Below galaxy-test is shown running with a yellow Access button](images/surf3.png)
 
-5. Clicking that will let you choose any of the *Catalog Items* from SRC. They've got a wide selection but we're only interested in the two Pulsar Catalog Items
+4. Clicking that will let you choose any of the *Catalog Items* from SRC. They've got a wide selection but we're only interested in the two Pulsar Catalog Items
 
    ![the two pulsar components in SRC: Galaxy Pulsar GPU Node (CUDA) and Galaxy Pulsar Node are shown. The second is expanded showing an author, Helena Rasche, and a description: let's you run galaxy jobs on another node](images/surf4.png)
 
-   > [!WARNING]
-   > The GPU nodes are *expensive*. In fact it
-   > was the motivating reason for building this catalog item: to enable you to
-   > launch a node, run some computations, and shut it down, saving you money.
+> [!WARNING]
+> The GPU nodes are *expensive*. In fact it
+> was the motivating reason for building this catalog item: to enable you to
+> launch a node, run some computations, and shut it down, saving you money.
 
-6. Creating a "workspace" (VM) from a catalog item (a template) is easy, most of the options are fixed for you, you just need to choose the size of the item. Pick an appropriate size for whatever computations you need to do.
+5. Creating a "workspace" (VM) from a catalog item (a template) is easy, most of the options are fixed for you, you just need to choose the size of the item. Pick an appropriate size for whatever computations you need to do.
 
    ![workspace creation screen, choose the cloud provider is locked to SURF HPC, flavour is locked to 22.04, and the size options are available from 1GB/8CPU to 60C/750GB Hi-mem](images/surf5.png)
 
-7. Pick a name, it can be anything, it does not matter.
+6. Pick a name, it can be anything, it does not matter. Check the expiration date to ensure it is just enough time for your computation and no more. Click submit when you are happy.
 
-   > [!NOTE]
-   > By default an "Expiration date" of around 3 days later is chosen. This is an incredibly useful feature as it saves you from forgetting to destroy a VM. Especially for GPU nodes it can help you ensure that they disappear after your computation is complete.
+> [!NOTE]
+> By default an "Expiration date" of around 3 days later is chosen. This is an incredibly useful feature as it saves you from forgetting to destroy a VM. Especially for GPU nodes it can help you ensure that they disappear after your computation is complete.
 
    ![almost there! some final details reads this page, asking for name and description. both have been filled out with 'pulsar'. a yellow submit button waits at the bottom](images/surf6.png)
 
-
-8. Once done, the workspace will be created for you
+7. Once done, the workspace will be created for you. You'll need to wait ~5 minutes usually. Go for a beverage ☕️
 
    ![workspace list showing a workspace named pulsar being created.](images/surf7.png)
 
