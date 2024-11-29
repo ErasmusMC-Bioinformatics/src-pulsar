@@ -24,6 +24,7 @@ slurm_config:
   PrologEpilogTimeout: 90
 
 # Pulsar
+pulsar_token: "{{ lookup('community.general.random_string', base64=True, length=24) }}"
 pulsar_root: /mnt/pulsar
 
 pulsar_pip_install: true
