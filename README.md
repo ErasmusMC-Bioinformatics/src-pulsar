@@ -79,7 +79,7 @@ The configuration is discussed fully in the Pulsar information, but it will be b
 - A destination/environment must be added with the pulsar details
 - Some tools should be redirected to this Pulsar
 
-Here is an example of what those changes look like in your Galaxy node.
+Here is an example of what those changes look like in your Galaxy node. ([FAQ: how to read a diff](https://training.galaxyproject.org/training-material/topics/admin/faqs/diffs.html)). In this example our pulsar node was called `p20` but that will be different for you.
 
 
 ```diff
@@ -141,7 +141,7 @@ Otherwise, it can be found from the URL of a tool page, or from the dropdown to 
 ![url bar and tool interface for the Cut1 tool](./images/id2.png)
 
 > [!IMPORTANT]
-> If you are running jobs for a limited period of time, you might consider making this pulsar node the default destination:
+> If you are running jobs for a limited period of time, you might consider making this pulsar node the default destination. Remember to use the `remote_...` name of your pulsar node, based on what you copied. Not `remote_p20`.
 > 
 > ```diff
 >  execution:
