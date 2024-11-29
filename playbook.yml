@@ -37,6 +37,10 @@
       ansible.builtin.include_role:
         name: uusrc.general.fact_regular_users
 
+    - name: Generate password
+      set_fact:
+        pulsar_token: "{{ lookup('community.general.random_string', base64=True, length=24) }}"
+
     - name: Install Dependencies
       ansible.builtin.apt:
         update_cache: true
