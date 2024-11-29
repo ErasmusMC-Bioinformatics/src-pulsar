@@ -55,37 +55,6 @@
       <h2>Configuring Galaxy</h2>
       <p>On the Galaxy machine, add the following configuration to your Galaxy <code>job_conf</code> to enable the use of this Pulsar endpoint</p>
 
-      <h3>XML</h3>
-      <p>Your job configuration is probably at <code>/srv/galaxy/config/job_conf.xml</code></p>
-<pre>...
-&lt;plugins&gt;
-    &lt;plugin id="pulsar" type="runner" load="galaxy.jobs.runners.pulsar:PulsarRESTJobRunner" /&gt;
-&lt;/plugins&gt;
-...
-&lt;destinations&gt;
-  &lt;destination id="remote_{{ ansible_hostname }}" runner="pulsar"&gt;
-    &lt;param id="url"&gt;https://{{ workspace_fqdn | default('localhost', true)  }}&lt;/param&gt;
-    &lt;param id="dependency_resolution"&gt;remote&lt;/param&gt;
-    &lt;param id="private_token"&gt;{{ pulsar_token | default('unknown', true)  }}&lt;/param&gt;
-    &lt;param id="manager"&gt;_default_&lt;/param&gt;
-
-&lt;!-- Uncomment the following to enable interactive tools: --&gt;
-&lt;!--
-    &lt;param id="docker_enabled"&gt;true&lt;/param&gt;
-    &lt;param id="docker_memory"&gt;8G&lt;/param&gt;
-    &lt;param id="singularity_enabled"&gt;false&lt;/param&gt;
-    &lt;param id="tmp_dir"&gt;True&lt;/param&gt;
-    &lt;param id="outputs_to_working_directory"&gt;False&lt;/param&gt;
-    &lt;param id="require_container"&gt;true&lt;/param&gt;
-    &lt;param id="container_monitor_command"&gt;/mnt/pulsar/venv/bin/galaxy-container-monitor&lt;/param&gt;
-    &lt;param id="container_monitor_result"&gt;callback&lt;/param&gt;
-    &lt;param id="container_monitor_get_ip_method"&gt;command:echo {{ workspace_fqdn | default('localhost', true)  }}&lt;/param&gt;
---&gt;
-
-  &lt;/destination&gt;
-&lt;destinations&gt;
-...
-</pre>
 
 
       <h3>YAML</h3>
@@ -129,6 +98,42 @@ execution:
 
     </section>
 
+
+      <h3>XML</h3>
+      <details><summary>(Older) XML Configuration</summary>
+      <p>Your job configuration is probably at <code>/srv/galaxy/config/job_conf.xml</code></p>
+<pre>...
+&lt;plugins&gt;
+    &lt;plugin id="pulsar" type="runner" load="galaxy.jobs.runners.pulsar:PulsarRESTJobRunner" /&gt;
+&lt;/plugins&gt;
+...
+&lt;destinations&gt;
+  &lt;destination id="remote_{{ ansible_hostname }}" runner="pulsar"&gt;
+    &lt;param id="url"&gt;https://{{ workspace_fqdn | default('localhost', true)  }}&lt;/param&gt;
+    &lt;param id="dependency_resolution"&gt;remote&lt;/param&gt;
+    &lt;param id="private_token"&gt;{{ pulsar_token | default('unknown', true)  }}&lt;/param&gt;
+    &lt;param id="manager"&gt;_default_&lt;/param&gt;
+
+&lt;!-- Uncomment the following to enable interactive tools: --&gt;
+&lt;!--
+    &lt;param id="docker_enabled"&gt;true&lt;/param&gt;
+    &lt;param id="docker_memory"&gt;8G&lt;/param&gt;
+    &lt;param id="singularity_enabled"&gt;false&lt;/param&gt;
+    &lt;param id="tmp_dir"&gt;True&lt;/param&gt;
+    &lt;param id="outputs_to_working_directory"&gt;False&lt;/param&gt;
+    &lt;param id="require_container"&gt;true&lt;/param&gt;
+    &lt;param id="container_monitor_command"&gt;/mnt/pulsar/venv/bin/galaxy-container-monitor&lt;/param&gt;
+    &lt;param id="container_monitor_result"&gt;callback&lt;/param&gt;
+    &lt;param id="container_monitor_get_ip_method"&gt;command:echo {{ workspace_fqdn | default('localhost', true)  }}&lt;/param&gt;
+--&gt;
+
+  &lt;/destination&gt;
+&lt;destinations&gt;
+...
+</pre>
+      </details>
+
+      <h3>Tool Destinations</h3>
     <p>Select some tools which will run</p>
 <pre>...
 tools:
@@ -136,6 +141,8 @@ tools:
 - id: bwa
   environment: remote_{{ ansible_hostname }}
 </pre>
+
+      <details><summary>(Older) XML Configuration</summary>
     <p>Or in XML</p>
 <pre>...
 &lt;tools&gt;
@@ -143,10 +150,18 @@ tools:
   &lt;tool id="toolshed.g2.bx.psu.edu/repos/devteam/bwa/bwa/0.7.18" destination="remote_{{ ansible_hostname }}"/&gt;
 &lt;/tools&gt;
 </pre>
+      </details>
+
+
     <h2>Restart Galaxy</h2>
     <p>On the galaxy machine, restart galaxy</p>
     <code>[root@galaxy]$ systemctl restart galaxy-*</code>
 
+    <h2>Testing Pulsar via Galaxy</h2>
+    <p>On Galaxy, run a job using one of the tools you decided should go to the Pulsar destination</p>
+
+
+    <details><summary>Debugging Pulsar</summary>
     <h2>Testing Pulsar</h2>
     <p>On the pulsar machine, this node, you can run the following command to check that Pulsar is running correctly, but this will likely fail part way through due to <a href="https://github.com/galaxyproject/pulsar/issues/377">galaxyproject/pulsar#377</a>, but if the job executes otherwise then you're probably fine.</p>
 <pre>[root@{{ inventory_hostname }}]$ . /mnt/pulsar/venv/bin/activate
@@ -156,6 +171,7 @@ INFO:pulsar.client.manager:Setting Pulsar client class to standard, non-caching 
 DEBUG:pulsar.client.client:Uploading path [/tmp/pulsar-check-client.tzn_c2ki/t/script.py] (action_type: [transfer])
 ...
 </pre>
+    </details>
 
     <h2>Ansible Configuration</h2>
     <details>
