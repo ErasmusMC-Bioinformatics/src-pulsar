@@ -2,6 +2,8 @@
 
 This repo provides the Ansible playbook for a [Pulsar](https://pulsar.readthedocs.io/) component on SURF ResearchCloud (SRC).
 
+We have also written a short [step-by-step tutorial on how to use this role](./tutorial.md)
+
 ### Roles used
 
 * The official [Pulsar Ansible role](https://github.com/galaxyproject/ansible-pulsar)
