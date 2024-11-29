@@ -73,9 +73,23 @@ This repository provides the Ansible playbook for a [Pulsar](https://pulsar.read
 
 ### Configuring Galaxy
 
+1. Collect the requirements for accessing the Galaxy machine. You will need:
+
+   - your username from the first step
+   - your SSH key that is associated with your SRAM account
+
+2. SSH into your Galaxy machine (not pulsar!).
+
+   ```
+   ssh -i path/to/your/sram-ssh-key username@sensitiveimages.src-sensitive-i.src.surf-hosted.nl
+   ```
+
+3. You will need to `sudo su` to do anything useful. Do that now.
+4. Galaxy configuration is in `/srv/galaxy/` by default.
+
 The configuration is discussed fully in the Pulsar information, but it will be briefly covered here as well. Generally there are a few steps that must be followed:
 
-- A runner must be registered 
+- A runner must be registered
 - A destination/environment must be added with the pulsar details
 - Some tools should be redirected to this Pulsar
 
@@ -153,6 +167,13 @@ Otherwise, it can be found from the URL of a tool page, or from the dropdown to 
 > ```
 
 With that, you're done, and for the length of time your node is running, your chosen tools (or everything) will be executed on that Pulsar node with more memory and CPU than the Galaxy host, and maybe a GPU as well!
+
+### Adding Custom Tools (Sensitive Imaging CO Specific)
+
+You can edit `/srv/galaxy/config/emc-tool-conf.xml` to add new tool XMLs (e.g. for Teo's Thrombo tool case)
+
+Remember to restart the Galaxy processes after: `systemctl restart galaxy-*`
+
 
 ## License
 
