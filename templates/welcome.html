@@ -59,6 +59,17 @@
 
       <h3>YAML</h3>
       <p>Your job configuration is probably at <code>/srv/galaxy/config/job_conf.yml</code></p>
+
+    <ol>
+	    <li>Open /srv/galaxy/job_conf.yml with a text editor</li>
+	    <li>Find the section starting with <code>runners:</code> at the start of the line, it should be at the start of the file.</li>
+	    <li>Add a destination after the <code>local:</code> runner like this, it will say that the <code>pulsar</code> runner should use the PulsarRESTJobRunner module.
+<pre>
+  pulsar:
+    load: galaxy.jobs.runners.pulsar:PulsarRESTJobRunner
+</pre>
+	    </li>
+	    <li>Finally it should look like:
 <pre>
 runners:
   local:
@@ -66,14 +77,47 @@ runners:
     workers: 4
   pulsar:
     load: galaxy.jobs.runners.pulsar:PulsarRESTJobRunner
+</pre>
+	    </li>
+    </ol>
 
+    <p>Next we will configure the Pulsar endpoint itself.
+
+    <ol>
+	    <li>Open /srv/galaxy/job_conf.yml with a text editor</li>
+	    <li>Find the section starting with <code>execution:</code> at the start of the line, it should be in the middle of the file.</li>
+	    <li>Add a destination after the <code>local:</code> runner like this, it will say that the <code>pulsar</code> runner should use the PulsarRESTJobRunner module.
+<pre>
+    remote_{{ ansible_hostname }}:
+       runner: pulsar
+       url: https://{{ workspace_fqdn | default('localhost', true)  }}
+       private_token: {{ pulsar_token | default('unknown', true) }}
+       dependency_resolution: remote
+       manager: _default_
+       # Uncomment the following to enable interactive tools:
+       # docker_enabled: true
+       # docker_set_user: null
+       # docker_memory: "8G"
+       # singularity_enabled: false
+       # tmp_dir: true
+       # outputs_to_working_directory: false
+       # container_resolvers:
+       # - type: explicit
+       # require_container: True
+       # container_monitor_command: /mnt/pulsar/venv/bin/galaxy-container-monitor
+       # container_monitor_result: callback
+       # container_monitor_get_ip_method: command:echo {{ workspace_fqdn | default('localhost', true) }}
+</pre>
+	    </li>
+	    <li>Finally it should look like:
+<pre>
 execution:
   default: docker_dispatch
   environments:
     local:
       runner: local
 
-    ...
+    # Maybe some other runners are here.
     remote_{{ ansible_hostname }}:
        runner: pulsar
        url: https://{{ workspace_fqdn | default('localhost', true)  }}
@@ -95,6 +139,10 @@ execution:
        # container_monitor_get_ip_method: command:echo {{ workspace_fqdn | default('localhost', true) }}
 
 </pre>
+	    </li>
+    </ol>
+
+
 
     </section>
 
@@ -135,12 +183,16 @@ execution:
 
       <h3>Tool Destinations</h3>
     <p>Select some tools which will run</p>
-<pre>...
-tools:
-...
-- id: bwa
-  environment: remote_{{ ansible_hostname }}
+    <ol>
+	    <li>Open /srv/galaxy/job_conf.yml</li>
+	    <li>Find the section starting with <code>tools:</code> at the start of the line, it should be the last section</li>
+	    <li>Add a tool like this, it will say that <code>bwa</code> should go to <code>remote_{{ ansible_hostname }}</code>. The indentation should match other entries.
+<pre>
+  - id: bwa
+    environment: remote_{{ ansible_hostname }}
 </pre>
+	    </li>
+    </ol>
 
       <details><summary>(Older) XML Configuration</summary>
     <p>Or in XML</p>
